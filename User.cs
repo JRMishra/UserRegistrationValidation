@@ -105,33 +105,43 @@ namespace UserRegistration
 
         private bool VerifyRule2(string pass)
         {
-            _regex = "^.*[0-9]+.*$";
+            _regex = "^.*[A-Z]+.*$";
             Regex rgxObj = new Regex(_regex);
             return rgxObj.IsMatch(pass);
         }
 
         private bool VerifyRule3(string pass)
         {
-            _regex = "^.*[A-Z]+.*$";
+            _regex = "^.*[0-9]+.*$";
+            Regex rgxObj = new Regex(_regex);
+            return rgxObj.IsMatch(pass);
+        }
+
+        private bool VerifyRule4(string pass)
+        {
+            _regex = "^[A-Za-z0-9]*[!@#$%&*_-][A-Za-z0-9]*$";
             Regex rgxObj = new Regex(_regex);
             return rgxObj.IsMatch(pass);
         }
 
         public void VerifyPassword()
         {
+            Console.WriteLine("Password needs to have \n" +
+                    "1. Minimum 8 characters\n" +
+                    "2. At least 1 upper case character\n" +
+                    "3. At least 1 numeric value\n" +
+                    "4. Exactly 1 special character\n");
+
             Console.Write("Password : ");
             string pass = Console.ReadLine();
-            if (VerifyRule1(pass) && VerifyRule2(pass) && VerifyRule3(pass))
+
+            if (VerifyRule1(pass) && VerifyRule2(pass) && VerifyRule3(pass) && VerifyRule4(pass))
             {
                 _password = pass;
                 Console.WriteLine("Password created successfully");
             }
             else
-            {
-                Console.WriteLine("Password needs to have \n" +
-                    "1. Minimum 8 characters\n" +
-                    "2. At least 1 upper case character\n" +
-                    "3. At least 1 numeric value");
+            {  
                 VerifyPassword();
             }
         }

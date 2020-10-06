@@ -10,6 +10,7 @@ namespace UserRegistration
             Console.WriteLine("=================================");
 
             User user = new User();
+
             user.VerifyFirstName();
             user.VerifyLastName();
             user.VerifyEmail();
