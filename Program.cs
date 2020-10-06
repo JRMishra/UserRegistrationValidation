@@ -12,8 +12,10 @@ namespace UserRegistration
             User user = new User();
             user.VerifyFirstName();
             user.VerifyLastName();
+            user.VerifyEmail();
 
             Console.WriteLine("\nName : " + user.FirstName+" "+user.LastName);
+            Console.WriteLine("Email : " + user.EMail);
         }
     }
 }
