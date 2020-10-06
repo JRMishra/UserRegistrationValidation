@@ -11,6 +11,7 @@ namespace UserRegistration
         string _lastName;
         string _eMail;
         string _phoneNumber;
+        string _password;
 
         string _regex="";
 
@@ -20,6 +21,7 @@ namespace UserRegistration
             this._lastName = "";
             this._eMail = "";
             this._phoneNumber = "";
+            this._password = "";
         }
 
         public string FirstName { get => _firstName; }
@@ -91,6 +93,24 @@ namespace UserRegistration
                     "1. 2 digit country code followed by space \n" +
                     "2. 10 digit number");
                 VerifyPhoneNumber();
+            }
+        }
+        
+        public void VerifyPassword()
+        {
+            Console.Write("Password : ");
+            string pass = Console.ReadLine();
+            _regex = "^[A-Za-z0-9]{8,}$";
+            Regex rgxObj = new Regex(_regex);
+            if (rgxObj.IsMatch(pass))
+            {
+                _password = pass;
+                Console.WriteLine("Password created successfully");
+            }
+            else
+            {
+                Console.WriteLine("Password needs to be minimum 8 characters");
+                VerifyPassword();
             }
         }
 
