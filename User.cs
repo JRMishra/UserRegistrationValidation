@@ -10,6 +10,7 @@ namespace UserRegistration
         string _firstName;
         string _lastName;
         string _eMail;
+        string _phoneNumber;
 
         string _regex="";
 
@@ -18,11 +19,13 @@ namespace UserRegistration
             this._firstName = "";
             this._lastName = "";
             this._eMail = "";
+            this._phoneNumber = "";
         }
 
         public string FirstName { get => _firstName; }
         public string LastName { get => _lastName; }
         public string EMail { get => _eMail; }
+        public string PhoneNumber { get => _phoneNumber; }
 
         public void VerifyFirstName()
         {
@@ -71,6 +74,23 @@ namespace UserRegistration
                 Console.WriteLine("The Email Id should be in \" abc.xyz@bl.co.in \" format\n" +
                     "(xyz & in parts optional)");
                 VerifyEmail();
+            }
+        }
+
+        public void VerifyPhoneNumber()
+        {
+            Console.Write("Phone Number : ");
+            string phNum = Console.ReadLine();
+            _regex = "^[0-9]{2} [0-9]{10}$";
+            Regex rgxObj = new Regex(_regex);
+            if (rgxObj.IsMatch(phNum))
+                _phoneNumber = phNum;
+            else
+            {
+                Console.WriteLine("The phone number should have\n" +
+                    "1. 2 digit country code followed by space \n" +
+                    "2. 10 digit number");
+                VerifyPhoneNumber();
             }
         }
 

@@ -13,9 +13,11 @@ namespace UserRegistration
             user.VerifyFirstName();
             user.VerifyLastName();
             user.VerifyEmail();
+            user.VerifyPhoneNumber();
 
             Console.WriteLine("\nName : " + user.FirstName+" "+user.LastName);
             Console.WriteLine("Email : " + user.EMail);
+            Console.WriteLine("Ph. Number : " + user.PhoneNumber);
         }
     }
 }
