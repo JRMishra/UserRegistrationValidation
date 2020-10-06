@@ -105,6 +105,13 @@ namespace UserRegistration
 
         private bool VerifyRule2(string pass)
         {
+            _regex = "^.*[0-9]+.*$";
+            Regex rgxObj = new Regex(_regex);
+            return rgxObj.IsMatch(pass);
+        }
+
+        private bool VerifyRule3(string pass)
+        {
             _regex = "^.*[A-Z]+.*$";
             Regex rgxObj = new Regex(_regex);
             return rgxObj.IsMatch(pass);
@@ -114,14 +121,17 @@ namespace UserRegistration
         {
             Console.Write("Password : ");
             string pass = Console.ReadLine();
-            if (VerifyRule1(pass) && VerifyRule2(pass))
+            if (VerifyRule1(pass) && VerifyRule2(pass) && VerifyRule3(pass))
             {
                 _password = pass;
                 Console.WriteLine("Password created successfully");
             }
             else
             {
-                Console.WriteLine("Password needs to have minimum 8 characters and at least 1 upper case letter");
+                Console.WriteLine("Password needs to have \n" +
+                    "1. Minimum 8 characters\n" +
+                    "2. At least 1 upper case character\n" +
+                    "3. At least 1 numeric value");
                 VerifyPassword();
             }
         }
