@@ -96,23 +96,36 @@ namespace UserRegistration
             }
         }
         
+        private bool VerifyRule1(string pass)
+        {
+            _regex = "^[A-Za-z0-9_@#$%&*-]{8,}$";
+            Regex rgxObj = new Regex(_regex);
+            return rgxObj.IsMatch(pass);
+        }
+
+        private bool VerifyRule2(string pass)
+        {
+            _regex = "^.*[A-Z]+.*$";
+            Regex rgxObj = new Regex(_regex);
+            return rgxObj.IsMatch(pass);
+        }
+
         public void VerifyPassword()
         {
             Console.Write("Password : ");
             string pass = Console.ReadLine();
-            _regex = "^[A-Za-z0-9]{8,}$";
-            Regex rgxObj = new Regex(_regex);
-            if (rgxObj.IsMatch(pass))
+            if (VerifyRule1(pass) && VerifyRule2(pass))
             {
                 _password = pass;
                 Console.WriteLine("Password created successfully");
             }
             else
             {
-                Console.WriteLine("Password needs to be minimum 8 characters");
+                Console.WriteLine("Password needs to have minimum 8 characters and at least 1 upper case letter");
                 VerifyPassword();
             }
         }
+
 
     }
 }
