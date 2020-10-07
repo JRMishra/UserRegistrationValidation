@@ -10,16 +10,18 @@ namespace UserRegistration
             Console.WriteLine("=================================");
 
             User user = new User();
-
+           
             user.VerifyFirstName();
             user.VerifyLastName();
-            user.VerifyEmail();
+            user.VerifyEmail();  
             user.VerifyPhoneNumber();
             user.VerifyPassword();
 
             Console.WriteLine("\nName : " + user.FirstName+" "+user.LastName);
             Console.WriteLine("Email : " + user.EMail);
             Console.WriteLine("Ph. Number : +" + user.PhoneNumber);
+
+            user.VerifiedEmailList();
         }
     }
 }

@@ -67,7 +67,7 @@ namespace UserRegistration
         {
             Console.Write("Enter Email Id : ");
             string email = Console.ReadLine();
-            _regex = "^[a-z1-9]{1,}(.[a-z1-9]{1,}){0,}@[a-z]{1,}[.]{1}[a-z]{1,}(.[a-z]{1,}){0,}$";
+            _regex = "^[a-z0-9-+]+([.][a-z0-9+-]+)?@[a-z0-9]+[.][a-z]{2,}([.][a-z]{2,})?$";
             Regex rgxObj = new Regex(_regex);
             if (rgxObj.IsMatch(email))
                 _eMail = email;
@@ -146,6 +146,46 @@ namespace UserRegistration
             }
         }
 
+        public void VerifiedEmailList()
+        {
+            List<string> emailList = new List<string>();
+            emailList.Add("abc@yahoo.com");
+            emailList.Add("abc-100@yahoo.com");
+            emailList.Add("abc.100@yahoo.com");
+            emailList.Add("abc111@yahoo.com");
+            emailList.Add("abc-100@abc.net");
+            emailList.Add("abc.100@abc.com.au");
+            emailList.Add("abc@1.com");
+            emailList.Add("abc@gmail.com.com");
+            emailList.Add("abc+100@gmail.com");
+
+            emailList.Add("abc");
+            emailList.Add("abc@.com.my");
+            emailList.Add("abc123@gmail.a");
+            emailList.Add("abc123@.com");
+            emailList.Add("abc123@.com.com");
+            emailList.Add(".abc@abc.com");
+            emailList.Add("abc()*@gmail.com");
+            emailList.Add("abc@%*.com");
+            emailList.Add("abc..2002@gmail.com");
+            emailList.Add("abc.@gmail.com");
+            emailList.Add("abc@abc@gmail.com");
+            emailList.Add("abc@gmail.com.1a");
+            emailList.Add("abc@gmail.com.aa.au");
+
+            _regex = "^[a-z0-9-+]+([.][a-z0-9+-]+)?@[a-z0-9]+[.][a-z]{2,}([.][a-z]{2,})?$";
+            Regex rgxObj = new Regex(_regex);
+
+            foreach(string email in emailList)
+            {
+                if (rgxObj.IsMatch(email))
+                    Console.WriteLine(email + "- VALID");
+                else
+                    Console.WriteLine(email + "- INVALID");
+            }
+            
+
+        }
 
     }
 }
