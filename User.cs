@@ -67,8 +67,10 @@ namespace UserRegistration
         {
             Console.Write("Enter Email Id : ");
             string email = Console.ReadLine();
-            _regex = "^[a-z0-9-+]+([.][a-z0-9+-]+)?@[a-z0-9]+[.][a-z]{2,}([.][a-z]{2,})?$";
+
+            _regex = "^[a-z0-9A-Z]+([.-+_][a-z0-9+-]+)*@[a-z0-9A-Z]+[.][a-z]{2,3}([.][a-z]{2,})?$";
             Regex rgxObj = new Regex(_regex);
+
             if (rgxObj.IsMatch(email))
                 _eMail = email;
             else
@@ -96,30 +98,9 @@ namespace UserRegistration
             }
         }
         
-        private bool VerifyRule1(string pass)
+        private bool VerifyAllPasswordRules(string pass)
         {
-            _regex = "^[A-Za-z0-9_@#$%&*-]{8,}$";
-            Regex rgxObj = new Regex(_regex);
-            return rgxObj.IsMatch(pass);
-        }
-
-        private bool VerifyRule2(string pass)
-        {
-            _regex = "^.*[A-Z]+.*$";
-            Regex rgxObj = new Regex(_regex);
-            return rgxObj.IsMatch(pass);
-        }
-
-        private bool VerifyRule3(string pass)
-        {
-            _regex = "^.*[0-9]+.*$";
-            Regex rgxObj = new Regex(_regex);
-            return rgxObj.IsMatch(pass);
-        }
-
-        private bool VerifyRule4(string pass)
-        {
-            _regex = "^[A-Za-z0-9]*[!@#$%&*_-][A-Za-z0-9]*$";
+            _regex = "((?=^.*[0-9].*$)(?=^.*[A-Z].*$)(?=^[a-zA-Z0-9]*[!@#$%&*+_]{1}[a-zA-Z0-9]*$).{8,})";
             Regex rgxObj = new Regex(_regex);
             return rgxObj.IsMatch(pass);
         }
@@ -135,7 +116,7 @@ namespace UserRegistration
             Console.Write("Password : ");
             string pass = Console.ReadLine();
 
-            if (VerifyRule1(pass) && VerifyRule2(pass) && VerifyRule3(pass) && VerifyRule4(pass))
+            if (VerifyAllPasswordRules(pass))
             {
                 _password = pass;
                 Console.WriteLine("Password created successfully");
