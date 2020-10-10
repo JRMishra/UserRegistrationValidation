@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UserRegistration\UserRegistration.csproj" />
+    <ProjectReference Include="..\UserRegistrationProgram\UserRegistration.csproj" />
   </ItemGroup>
 
 </Project>
