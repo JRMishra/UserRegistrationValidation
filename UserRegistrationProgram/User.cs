@@ -36,9 +36,38 @@ namespace UserRegistration
             return rgxObj.IsMatch(str);
         }
 
-        public void StoreFirstName()
+        public bool VerifyFirstName(string fName)
         {
             _regex = "^[A-Z][a-z A-Z]{2,}$";
+            return Validate(fName, _regex);
+        }
+
+        public bool VerifyLastName(string lName)
+        {
+            _regex = "^[A-Z][a-z A-Z]{2,}$";
+            return Validate(lName, _regex);
+        }
+
+        public bool VerifyEmail(string eMail)
+        {
+            _regex = "^[a-z0-9A-Z]+([-.+_][a-z0-9+-]+)*@[a-z0-9A-Z]+[.][a-z]{2,3}([.][a-z]{2,})?$";
+            return Validate(eMail, _regex);
+        }
+
+        public bool VerifyPhNumber(string phNum)
+        {
+            _regex = "^[0-9]{2} [1-9][1-9]{9}$";
+            return Validate(phNum, _regex);
+        }
+
+        public bool VerifyPassword(string pass)
+        {
+            _regex = "((?=^.*[0-9].*$)(?=^.*[A-Z].*$)(?=^[a-zA-Z0-9]*[!@#$%&*+_]{1}[a-zA-Z0-9]*$).{8,})";
+            return Validate(_regex, pass);
+        }
+
+        public void StoreFirstName()
+        {
             while (true)
             {
                 Console.WriteLine("\nThe first name should have\n" +
@@ -47,7 +76,7 @@ namespace UserRegistration
 
                 Console.Write("Enter first name : ");
                 string fName = Console.ReadLine();
-                if (Validate(fName, _regex))
+                if (VerifyFirstName(fName))
                 {
                     _firstName = fName;
                     break;
@@ -55,15 +84,8 @@ namespace UserRegistration
             }
         }
 
-        public bool VerifyFirstName(string fName)
-        {
-            _regex = "^[A-Z][a-z A-Z]{2,}$";
-            return Validate(fName, _regex);
-        }
-
         public void StoreLastName()
         {
-            _regex = "^[A-Z][a-z A-Z]{2,}$";
             while (true)
             {
                 Console.WriteLine("\nThe last name should have\n" +
@@ -73,7 +95,7 @@ namespace UserRegistration
                 Console.Write("Enter last name : ");
                 string lName = Console.ReadLine();
 
-                if (Validate(lName, _regex))
+                if (VerifyLastName(lName))
                 {
                     _lastName = lName;
                     break;
@@ -81,16 +103,8 @@ namespace UserRegistration
             }
         }
 
-        public bool VerifyLastName(string lName)
-        {
-            _regex = "^[A-Z][a-z A-Z]{2,}$";
-            return Validate(lName, _regex);
-        }
-
         public void StoreEmail()
         {
-            _regex = "^[a-z0-9A-Z]+([-.+_][a-z0-9+-]+)*[@][a-z0-9A-Z]+[.][a-z]{2,3}([.][a-z]{2,3})?$";
-
             while (true)
             {
                 Console.WriteLine("\nThe Email Id should be in \" abc.xyz@bl.co.in \" format\n" +
@@ -99,18 +113,12 @@ namespace UserRegistration
                 Console.Write("Enter Email Id : ");
                 string email = Console.ReadLine();
 
-                if (Validate(email, _regex))
+                if (VerifyEmail(email))
                 {
                     _eMail = email;
                     break;
                 }
             }
-        }
-
-        public bool VerifyEmail(string eMail)
-        {
-            _regex = "^[a-z0-9A-Z]+([.-+_][a-z0-9+-]+)*@[a-z0-9A-Z]+[.][a-z]{2,3}([.][a-z]{2,})?$";
-            return Validate(eMail, _regex);
         }
 
         public void StorePhoneNumber()
@@ -132,12 +140,6 @@ namespace UserRegistration
                     break;
                 }
             }
-        }
-
-        public bool VerifyPhNumber(string phNum)
-        {
-            _regex = "^[0-9]{2} [1-9][1-9]{9}$";
-            return Validate(phNum, _regex);
         }
 
         public void StorePassword()
@@ -162,12 +164,6 @@ namespace UserRegistration
                     break;
                 }
             }
-        }
-
-        public bool VerifyPassword(string pass)
-        {
-            _regex = "((?=^.*[0-9].*$)(?=^.*[A-Z].*$)(?=^[a-zA-Z0-9]*[!@#$%&*+_]{1}[a-zA-Z0-9]*$).{8,})";
-            return Validate(_regex, pass);
         }
 
         public void VerifiedEmailList()
