@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace UserRegistration
 {
-    class User
+    public class User
     {
         string _firstName;
         string _lastName;
