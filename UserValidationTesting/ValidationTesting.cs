@@ -74,7 +74,7 @@ namespace UserValidationTesting
         }
 
        
-         [TestMethod]
+        [TestMethod]
         [DataRow("jrm@gmail.com")]
         [DataRow("jrm.cg@gmail.co.in")]
         [DataRow("jrm@gmail.co.in")]
@@ -146,6 +146,42 @@ namespace UserValidationTesting
 
             //Act
             bool actual = user.VerifyPhNumber(phNum);
+
+            //Assert
+            Assert.AreNotEqual(expected, actual);
+        }
+
+        [TestMethod]
+        [DataRow("Had2Te#t")]
+        [DataRow("had2T3stP@ss")]
+        [DataRow("T3STP@SS")]
+        public void TestPasswordValidation_ValidPasswords(string pass)
+        {
+            //Arrange
+            User user = new User();
+            bool expected = true;
+
+            //Act
+            bool actual = user.VerifyPassword(pass);
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        [DataRow("Hd2T#t")] //less than 8 char
+        [DataRow("had2testPass")] //no special char
+        [DataRow("TestP@ss")] //no number
+        [DataRow("t3stp@ss")] //no upper case
+        [DataRow("T#stP@ss5")] //more than 1 special case
+        public void TestPasswordValidation_InvalidPasswords(string pass)
+        {
+            //Arrange
+            User user = new User();
+            bool expected = true;
+
+            //Act
+            bool actual = user.VerifyPassword(pass);
 
             //Assert
             Assert.AreNotEqual(expected, actual);

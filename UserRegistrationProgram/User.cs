@@ -63,7 +63,7 @@ namespace UserRegistration
         public bool VerifyPassword(string pass)
         {
             _regex = "((?=^.*[0-9].*$)(?=^.*[A-Z].*$)(?=^[a-zA-Z0-9]*[!@#$%&*+_]{1}[a-zA-Z0-9]*$).{8,})";
-            return Validate(_regex, pass);
+            return Validate(pass, _regex);     
         }
 
         public void StoreFirstName()
