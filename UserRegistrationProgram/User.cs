@@ -56,7 +56,7 @@ namespace UserRegistration
 
         public bool VerifyPhNumber(string phNum)
         {
-            _regex = "^[0-9]{2} [1-9][1-9]{9}$";
+            _regex = "^[0-9]{2}[ ][1-9][0-9]{9}$";
             return Validate(phNum, _regex);
         }
 

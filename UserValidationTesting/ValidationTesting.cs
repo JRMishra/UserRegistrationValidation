@@ -113,5 +113,43 @@ namespace UserValidationTesting
             //Assert
             Assert.AreNotEqual(expected, actual);
         }
+
+
+        [TestMethod]
+        [DataRow("91 6231230127")]
+        public void TestPhNumberValidation_ValidNumbers(string phNum)
+        {
+            //Arrange
+            User user = new User();
+            bool expected = true;
+
+            //Act
+            bool actual = user.VerifyPhNumber(phNum);
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        [DataRow("1234567890")]
+        [DataRow("981236540987")]
+        [DataRow("97 0123456789")]
+        [DataRow("97 123456")]
+        [DataRow("9 1234567890")]
+        [DataRow("97 8123456789012")]
+        [DataRow("97 123 456 6789")]
+        public void TestPhNumberValidation_InvalidNumbers(string phNum)
+        {
+            //Arrange
+            User user = new User();
+            bool expected = true;
+
+            //Act
+            bool actual = user.VerifyPhNumber(phNum);
+
+            //Assert
+            Assert.AreNotEqual(expected, actual);
+        }
+
     }
 }
