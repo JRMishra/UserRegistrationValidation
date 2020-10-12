@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using UserRegistration;
 
 namespace UserValidationTesting
@@ -10,7 +11,7 @@ namespace UserValidationTesting
         [DataRow("Jyoti")]
         [DataRow("JYOTI")]
         [DataRow("Jyoti Ranjan")]
-        public void TestFirstNameValidation_ValidNames(string fName)
+        public void Test_ValidFirstNames(string fName)
         {
             //Arrange
             User user = new User();
@@ -27,23 +28,30 @@ namespace UserValidationTesting
         [DataRow("Jr")]
         [DataRow("jyoti")]
         [DataRow("Jy@ti")]
-        public void TestFirstNameValidation_InvalidNames(string fName)
+        public void Test_InvalidFirstNames(string fName)
         {
             //Arrange
             User user = new User();
-            bool expected = true;
-
+            string expected = "First name needs min 3 characters and first letter in upper case";
+            string actual;
             //Act
-            bool actual = user.VerifyFirstName(fName);
+            try
+            {
+                actual = user.VerifyFirstName(fName).ToString();
+            }
+            catch(ValidationException e)
+            {
+                actual = e.Message;
+            }
 
             //Assert
-            Assert.AreNotEqual(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
         [DataRow("Mishra")]
         [DataRow("MISHRA")]
-        public void TestLastNameValidation_ValidNames(string lName)
+        public void Test_ValidLastNames(string lName)
         {
             //Arrange
             User user = new User();
@@ -60,17 +68,24 @@ namespace UserValidationTesting
         [DataRow("Mi")]
         [DataRow("mishra")]
         [DataRow("Mis#ra")]
-        public void TestLastNameValidation_InvalidNames(string lName)
+        public void Test_InvalidLastNames(string lName)
         {
             //Arrange
             User user = new User();
-            bool expected = true;
-
+            string expected = "Last name needs min 3 characters and first letter in upper case";
+            string actual;
             //Act
-            bool actual = user.VerifyLastName(lName);
+            try
+            {
+                actual = user.VerifyLastName(lName).ToString();
+            }
+            catch (ValidationException e)
+            {
+                actual = e.Message;
+            }
 
             //Assert
-            Assert.AreNotEqual(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
        
@@ -80,7 +95,7 @@ namespace UserValidationTesting
         [DataRow("jrm@gmail.co.in")]
         [DataRow("jrm100@gmail.com")]
         [DataRow("jrm-nit@1mg.co.in")]
-        public void TestEmailValidation_ValidEmails(string email)
+        public void Test_ValidEmails(string email)
         {
             //Arrange
             User user = new User();
@@ -101,23 +116,30 @@ namespace UserValidationTesting
         [DataRow("jrm..nit@1mg.com")]
         [DataRow("jrm.nit.@gmail.com")]
         [DataRow("jrm..nit@1mg.23")]
-        public void TestEmailValidation_InvalidEmails(string email)
+        public void Test_InvalidEmails(string email)
         {
             //Arrange
             User user = new User();
-            bool expected = true;
-
+            string expected = "Email id should be in \" abc.xyz@bl.co.in \" format (.xyz & .in parts optional)";
+            string actual;
             //Act
-            bool actual = user.VerifyEmail(email);
+            try
+            {
+                actual = user.VerifyEmail(email).ToString();
+            }
+            catch (ValidationException e)
+            {
+                actual = e.Message;
+            }
 
             //Assert
-            Assert.AreNotEqual(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
 
         [TestMethod]
         [DataRow("91 6231230127")]
-        public void TestPhNumberValidation_ValidNumbers(string phNum)
+        public void Test_ValidNumbers(string phNum)
         {
             //Arrange
             User user = new User();
@@ -138,24 +160,31 @@ namespace UserValidationTesting
         [DataRow("9 1234567890")]
         [DataRow("97 8123456789012")]
         [DataRow("97 123 456 6789")]
-        public void TestPhNumberValidation_InvalidNumbers(string phNum)
+        public void Test_InvalidNumbers(string phNum)
         {
             //Arrange
             User user = new User();
-            bool expected = true;
-
+            string expected = "Phone number should have 2 digit country code followed by space separated 10 digit number";
+            string actual;
             //Act
-            bool actual = user.VerifyPhNumber(phNum);
+            try
+            {
+                actual = user.VerifyPhNumber(phNum).ToString();
+            }
+            catch (ValidationException e)
+            {
+                actual = e.Message;
+            }
 
             //Assert
-            Assert.AreNotEqual(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
         [DataRow("Had2Te#t")]
         [DataRow("had2T3stP@ss")]
         [DataRow("T3STP@SS")]
-        public void TestPasswordValidation_ValidPasswords(string pass)
+        public void Test_ValidPasswords(string pass)
         {
             //Arrange
             User user = new User();
@@ -174,17 +203,24 @@ namespace UserValidationTesting
         [DataRow("TestP@ss")] //no number
         [DataRow("t3stp@ss")] //no upper case
         [DataRow("T#stP@ss5")] //more than 1 special case
-        public void TestPasswordValidation_InvalidPasswords(string pass)
+        public void Test_InvalidPasswords(string pass)
         {
             //Arrange
             User user = new User();
-            bool expected = true;
-
+            string expected = "Password needs to have min 8 characters, at least 1 upper case character, at least 1 numeric value, exactly 1 special character";
+            string actual;
             //Act
-            bool actual = user.VerifyPassword(pass);
+            try
+            {
+                actual = user.VerifyPassword(pass).ToString();
+            }
+            catch (ValidationException e)
+            {
+                actual = e.Message;
+            }
 
             //Assert
-            Assert.AreNotEqual(expected, actual);
+            Assert.AreEqual(expected, actual);
         }
 
     }
