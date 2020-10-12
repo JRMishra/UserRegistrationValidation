@@ -7,12 +7,10 @@ namespace UserValidationTesting
     public class ValidationTesting
     {
         [TestMethod]
-        [DataRow("Jyoti")]
-        [DataRow("JYOTI")]
-        [DataRow("Jyoti Ranjan")]
-        public void TestFirstNameValidation_ValidNames(string fName)
+        public void Test_ValidFirstName()
         {
             //Arrange
+            string fName = "Jyoti";
             User user = new User();
             bool expected = true;
 
@@ -24,12 +22,10 @@ namespace UserValidationTesting
         }
 
         [TestMethod]
-        [DataRow("Jr")]
-        [DataRow("jyoti")]
-        [DataRow("Jy@ti")]
-        public void TestFirstNameValidation_InvalidNames(string fName)
+        public void Test_InvalidFirstName()
         {
             //Arrange
+            string fName = "jyoti";
             User user = new User();
             bool expected = true;
 
@@ -41,11 +37,10 @@ namespace UserValidationTesting
         }
 
         [TestMethod]
-        [DataRow("Mishra")]
-        [DataRow("MISHRA")]
-        public void TestLastNameValidation_ValidNames(string lName)
+        public void Test_ValidLastName()
         {
             //Arrange
+            string lName = "Mishra";
             User user = new User();
             bool expected = true;
 
@@ -57,12 +52,10 @@ namespace UserValidationTesting
         }
 
         [TestMethod]
-        [DataRow("Mi")]
-        [DataRow("mishra")]
-        [DataRow("Mis#ra")]
-        public void TestLastNameValidation_InvalidNames(string lName)
+        public void Test_InvalidLastName()
         {
             //Arrange
+            string lName = "mishra";
             User user = new User();
             bool expected = true;
 
@@ -73,16 +66,11 @@ namespace UserValidationTesting
             Assert.AreNotEqual(expected, actual);
         }
 
-       
         [TestMethod]
-        [DataRow("jrm@gmail.com")]
-        [DataRow("jrm.cg@gmail.co.in")]
-        [DataRow("jrm@gmail.co.in")]
-        [DataRow("jrm100@gmail.com")]
-        [DataRow("jrm-nit@1mg.co.in")]
-        public void TestEmailValidation_ValidEmails(string email)
+        public void Test_ValidEmail()
         {
             //Arrange
+            string email = "jrm@gmail.co.in";
             User user = new User();
             bool expected = true;
 
@@ -94,16 +82,10 @@ namespace UserValidationTesting
         }
 
         [TestMethod]
-        [DataRow("jrm.@gmail.com")]
-        [DataRow("jrm@cg@gmail.co.in")]
-        [DataRow("jrm@gmail.co.in.uk")]
-        [DataRow("jrm100@.gmail.com")]
-        [DataRow("jrm..nit@1mg.com")]
-        [DataRow("jrm.nit.@gmail.com")]
-        [DataRow("jrm..nit@1mg.23")]
-        public void TestEmailValidation_InvalidEmails(string email)
+        public void Test_InvalidEmail()
         {
             //Arrange
+            string email = "jrm..100@gmail.co.in";
             User user = new User();
             bool expected = true;
 
@@ -114,12 +96,11 @@ namespace UserValidationTesting
             Assert.AreNotEqual(expected, actual);
         }
 
-
         [TestMethod]
-        [DataRow("91 6231230127")]
-        public void TestPhNumberValidation_ValidNumbers(string phNum)
+        public void Test_ValidNumber()
         {
             //Arrange
+            string phNum = "91 6231230127";
             User user = new User();
             bool expected = true;
 
@@ -131,16 +112,10 @@ namespace UserValidationTesting
         }
 
         [TestMethod]
-        [DataRow("1234567890")]
-        [DataRow("981236540987")]
-        [DataRow("97 0123456789")]
-        [DataRow("97 123456")]
-        [DataRow("9 1234567890")]
-        [DataRow("97 8123456789012")]
-        [DataRow("97 123 456 6789")]
-        public void TestPhNumberValidation_InvalidNumbers(string phNum)
+        public void Test_InvalidNumber()
         {
             //Arrange
+            string phNum = "97 8123456789012";
             User user = new User();
             bool expected = true;
 
@@ -152,12 +127,10 @@ namespace UserValidationTesting
         }
 
         [TestMethod]
-        [DataRow("Had2Te#t")]
-        [DataRow("had2T3stP@ss")]
-        [DataRow("T3STP@SS")]
-        public void TestPasswordValidation_ValidPasswords(string pass)
+        public void Test_ValidPassword()
         {
             //Arrange
+            string pass = "Had2Te#t";
             User user = new User();
             bool expected = true;
 
@@ -169,14 +142,10 @@ namespace UserValidationTesting
         }
 
         [TestMethod]
-        [DataRow("Hd2T#t")] //less than 8 char
-        [DataRow("had2testPass")] //no special char
-        [DataRow("TestP@ss")] //no number
-        [DataRow("t3stp@ss")] //no upper case
-        [DataRow("T#stP@ss5")] //more than 1 special case
-        public void TestPasswordValidation_InvalidPasswords(string pass)
+        public void Test_InvalidPassword()
         {
             //Arrange
+            string pass = "Hd2T#t";
             User user = new User();
             bool expected = true;
 
