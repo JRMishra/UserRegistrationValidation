@@ -9,7 +9,6 @@ namespace UserRegistration
             Console.WriteLine("Welcome to User Registration Form");
             Console.WriteLine("=================================");
 
-            User user = new User();
             Console.ReadKey();
         }
     }

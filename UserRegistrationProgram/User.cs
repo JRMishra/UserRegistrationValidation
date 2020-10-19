@@ -3,55 +3,34 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Data;
+using System.Linq;
 
 namespace UserRegistration
 {
     public class User
     {
-        string _firstName;
-        string _lastName;
-        string _eMail;
-        string _phoneNumber;
-        string _password;
-
-        string _regex = "";
-
-        public User()
-        {
-            this._firstName = "";
-            this._lastName = "";
-            this._eMail = "";
-            this._phoneNumber = "";
-            this._password = "";
-        }
-
-        public string FirstName { get => _firstName; }
-        public string LastName { get => _lastName; }
-        public string EMail { get => _eMail; }
-        public string PhoneNumber { get => _phoneNumber; }
-
-        private bool Validate(string strToValidate, string regex)
-        {
-            Regex rgxObj = new Regex(_regex);
-            return rgxObj.IsMatch(strToValidate);
-        }
+        public string FirstNamePattern { get; } = "^[A-Z][a-z A-Z]{2,}$";
+        public string LastNamePattern { get; } = "^[A-Z][a-z A-Z]{2,}$";
+        public string EmailPattern { get; } = "^[a-z0-9A-Z]+([-.+_][a-z0-9+-]+)*@[a-z0-9A-Z]+[.][a-z]{2,3}([.][a-z]{2,})?$";
+        public string PhoneNumberPattern { get; } = "^[0-9]{2}[ ][1-9][0-9]{9}$";
+        public string PasswordPattern { get; } = "((?=^.*[0-9].*$)(?=^.*[A-Z].*$)(?=^[a-zA-Z0-9]*[!@#$%&*+_]{1}[a-zA-Z0-9]*$).{8,})";
 
         public bool VerifyFirstName(string fName)
         {
-            _regex = "^[A-Z][a-z A-Z]{2,}$";
-            if (Validate(fName, _regex))
+            if (Regex.IsMatch(fName,FirstNamePattern))
                 return true;
             else
             {
                 string rule = "First name needs min 3 characters and first letter in upper case";
-                throw new ValidationException(ValidationException.InvalidationType.INVALID_FIRST_NAME,rule);
+                throw new ValidationException(ValidationException.InvalidationType.INVALID_FIRST_NAME, rule);
             }
         }
 
         public bool VerifyLastName(string lName)
         {
-            _regex = "^[A-Z][a-z A-Z]{2,}$";
-            if(Validate(lName, _regex))
+            
+            if(Regex.IsMatch(lName,LastNamePattern))
                 return true;
             else
             {
@@ -62,8 +41,8 @@ namespace UserRegistration
 
         public bool VerifyEmail(string eMail)
         {
-            _regex = "^[a-z0-9A-Z]+([-.+_][a-z0-9+-]+)*@[a-z0-9A-Z]+[.][a-z]{2,3}([.][a-z]{2,})?$";
-            if (Validate(eMail, _regex))
+           
+            if(Regex.IsMatch(eMail,EmailPattern))
                 return true;
             else
             {
@@ -74,8 +53,7 @@ namespace UserRegistration
 
         public bool VerifyPhNumber(string phNum)
         {
-            _regex = "^[0-9]{2}[ ][1-9][0-9]{9}$";
-            if (Validate(phNum, _regex))
+            if (Regex.IsMatch(phNum,PhoneNumberPattern))
                 return true;
             else
             {
@@ -86,24 +64,12 @@ namespace UserRegistration
 
         public bool VerifyPassword(string pass)
         {
-            _regex = "((?=^.*[0-9].*$)(?=^.*[A-Z].*$)(?=^[a-zA-Z0-9]*[!@#$%&*+_]{1}[a-zA-Z0-9]*$).{8,})";
-            if (Validate(pass, _regex))
+            if (Regex.IsMatch(pass, PasswordPattern))
                 return true;
             else
             {
                 string rule = "Password needs to have min 8 characters, at least 1 upper case character, at least 1 numeric value, exactly 1 special character";
                 throw new ValidationException(ValidationException.InvalidationType.INVALID_PASSWORD, rule);
-            }
-        }
-
-        public void VerifiedEmailList(List<string> emailList)
-        {
-            foreach (string email in emailList)
-            {
-                if (VerifyEmail(email))
-                    Console.WriteLine(email + "- VALID");
-                else
-                    Console.WriteLine(email + "- INVALID");
             }
         }
     }

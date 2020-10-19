@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using UserRegistration;
 
 namespace UserValidationTesting
@@ -223,5 +224,23 @@ namespace UserValidationTesting
             Assert.AreEqual(expected, actual);
         }
 
+        [TestMethod]
+        public void ValidNameList_ReturnsValidFirstNames()
+        {
+            //arrange
+            VerifiedList verifiedList = new VerifiedList();
+            List<string> firstNameList = new List<string>() { "Jyoti", "JYOTI", "Jyoti Ranjan", "Jr", "jyoti", "Jy@ti" };
+            List<string> validFirstNameListExpected = new List<string>() { "Jyoti", "JYOTI", "Jyoti Ranjan" };
+
+            //Act
+            List<string> validFirstNameListActual = verifiedList.VerifiedFirstNames(firstNameList);
+
+            //Assert
+            Assert.AreEqual(true,CompareValueInObject.IsEqual(validFirstNameListExpected,validFirstNameListActual));
+            
+        }
+
     }
+
+    
 }
